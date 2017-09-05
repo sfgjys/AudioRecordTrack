@@ -5,10 +5,12 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.io.File;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         findViewById(R.id.start).setOnClickListener(this);
         findViewById(R.id.end).setOnClickListener(this);
+        findViewById(R.id.decode).setOnClickListener(this);
     }
 
     private void initThread() {
@@ -156,6 +159,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mPlayPCMTool.stop();
                 mPlayPCMTool = null;
                 clearData();
+                break;
+            case R.id.decode:
+                String sdCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                DecodeMp3ToPCM.decodeMusicFile(sdCardPath + "/Decode/123456.mp3", sdCardPath + "/Decode/123456.pcm");
                 break;
         }
     }
